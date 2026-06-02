@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePlus Medical Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+:root{--primary:#2563eb;--primary-dark:#1d4ed8;--light:#eff6ff;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#f8fafc;--success:#16a34a}
+html{scroll-behavior:smooth}
+body{background:white;color:var(--text);line-height:1.6}
+.container{width:min(1200px,92%);margin:auto}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;background:white;border-bottom:1px solid var(--border);z-index:999}
+.nav-wrap{height:75px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:800}
+.logo span{color:var(--primary)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.btn{background:var(--primary);color:white;padding:13px 24px;border:none;border-radius:10px;font-weight:600;text-decoration:none;cursor:pointer;transition:.3s;font-size:14px}
+.btn:hover{background:var(--primary-dark);transform:translateY(-2px)}
+
+/* TICKER */
+.ticker-bar{background:#0f172a;color:#fff;padding:0;overflow:hidden;height:42px;display:flex;align-items:center}
+.ticker-track{display:flex;animation:ticker 28s linear infinite;white-space:nowrap}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 36px;font-size:12px;font-weight:600;letter-spacing:.6px;color:rgba(255,255,255,.9)}
+.ticker-sep{color:rgba(255,255,255,.25);font-size:16px}
+
+/* HERO */
+.hero{padding:170px 0 80px;background:linear-gradient(to bottom,var(--light),white)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#dcfce7;color:#166534;font-size:13px;font-weight:600;border-radius:999px;margin-bottom:20px;box-shadow:0 4px 16px rgba(22,163,74,.15)}
+.badge::before{content:'';width:7px;height:7px;border-radius:50%;background:#16a34a;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:58px;line-height:1.1;margin-bottom:20px;background:linear-gradient(90deg,#2563eb,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);font-size:18px;margin-bottom:30px}
+.hero-buttons{display:flex;gap:15px;flex-wrap:wrap}
+.secondary{background:white;color:var(--text);border:1.5px solid var(--border)}
+.secondary:hover{border-color:var(--primary);color:var(--primary);background:white;transform:translateY(-2px)}
+
+/* DOCTOR CARD */
+.doctor-card{background:white;border-radius:24px;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,.08);border:1px solid var(--border)}
+.doctor-image{height:350px;background:var(--light);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:120px;margin-bottom:20px;overflow:hidden}
+.doctor-photo{width:100%;height:100%;object-fit:cover;display:block}
+.rating{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--bg);border-radius:12px;margin-top:14px}
+.rating div{text-align:center}
+.rating strong{display:block;font-size:17px;font-weight:800;color:var(--text)}
+.rating small{font-size:12px;color:var(--muted)}
+
+/* TRUST STRIP */
+.trust-strip{background:white;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;position:relative;height:52px;display:flex;align-items:center}
+.trust-strip::before,.trust-strip::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.trust-strip::before{left:0;background:linear-gradient(to right,white,transparent)}
+.trust-strip::after{right:0;background:linear-gradient(to left,white,transparent)}
+.ts-track{display:flex;animation:tslide 22s linear infinite}
+.ts-track:hover{animation-play-state:paused}
+@keyframes tslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ts-item{display:inline-flex;align-items:center;gap:10px;padding:0 36px;white-space:nowrap;font-size:13px;font-weight:600;color:var(--muted)}
+.ts-icon{font-size:18px}
+
+/* SECTIONS */
+section{padding:90px 0}
+.section-title{font-size:42px;text-align:center;margin-bottom:15px;font-weight:800;letter-spacing:-.5px}
+.section-sub{text-align:center;color:var(--muted);max-width:700px;margin:auto auto 50px}
+
+/* SERVICES */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.card{background:white;border:1.5px solid var(--border);padding:30px;border-radius:18px;transition:.3s;cursor:default}
+.card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(37,99,235,.1);border-color:var(--primary)}
+.icon{font-size:42px;margin-bottom:15px}
+.card h3{margin-bottom:10px;font-size:17px}
+.card p{color:var(--muted);font-size:14px;line-height:1.65}
+
+/* STATS */
+.stats{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:white;padding:72px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;gap:20px}
+.stat-card{padding:28px 20px;border:1px solid rgba(255,255,255,.15);border-radius:16px;background:rgba(255,255,255,.08);transition:.3s}
+.stat-card:hover{background:rgba(255,255,255,.18);transform:translateY(-4px)}
+.stat-icon{font-size:28px;margin-bottom:12px}
+.number{font-size:48px;font-weight:800;line-height:1;margin-bottom:8px}
+.stat-card p{opacity:.8;font-size:14px}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-box{background:var(--light);height:500px;border-radius:25px;display:flex;align-items:center;justify-content:center;font-size:150px;overflow:hidden}
+.doctor-about-photo{width:100%;height:100%;object-fit:cover;display:block}
+.check{display:flex;align-items:center;gap:10px;margin:16px 0;padding:12px 16px;background:var(--bg);border-radius:10px;border:1px solid var(--border);font-size:14px;font-weight:500}
+
+/* APPOINTMENT */
+.appointment{background:var(--bg)}
+.booking{background:white;max-width:850px;margin:auto;padding:40px;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,.06);border:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+input,select,textarea{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:10px;outline:none;font-family:'Inter',sans-serif;font-size:14px;transition:border-color .2s;background:var(--bg)}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);background:white;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+textarea{grid-column:1/-1;height:120px;resize:none}
+.submit{grid-column:1/-1;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;padding:16px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:.3s;box-shadow:0 4px 16px rgba(37,99,235,.3)}
+.submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.4)}
+.form-note{grid-column:1/-1;text-align:center;font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ── SLIDING REVIEWS ── */
+.reviews-section{background:#0f172a;padding:90px 0;overflow:hidden}
+.rev-header{text-align:center;padding:0 5%;margin-bottom:52px}
+.rev-header .section-title{color:white}
+.rev-header .section-sub{color:#94A3B8;margin-bottom:0}
+.rev-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:#7DD3FC;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;justify-content:center}
+.rev-tag::before,.rev-tag::after{content:'';flex:1;max-width:40px;height:1.5px;background:#7DD3FC;border-radius:2px}
+.rev-track-wrap{overflow:hidden;position:relative}
+.rev-track-wrap::before,.rev-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.rev-track-wrap::before{left:0;background:linear-gradient(to right,#0f172a,transparent)}
+.rev-track-wrap::after{right:0;background:linear-gradient(to left,#0f172a,transparent)}
+.rev-track{display:flex;gap:22px;animation:revslide 32s linear infinite;padding:8px 0}
+.rev-track:hover{animation-play-state:paused}
+.rev-track2{animation-direction:reverse;animation-duration:26s;margin-top:22px}
+@keyframes revslide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rev-card{background:#1E293B;border:1px solid #334155;border-radius:18px;padding:26px 28px;min-width:340px;max-width:340px;flex-shrink:0;transition:border-color .3s}
+.rev-card:hover{border-color:#60A5FA}
+.verified{font-size:11px;color:#34D399;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.rev-stars{color:#F59E0B;font-size:14px;letter-spacing:3px;margin-bottom:12px}
+.rev-text{font-size:14px;color:#CBD5E1;line-height:1.75;margin-bottom:20px;font-style:italic}
+.rev-author{display:flex;align-items:center;gap:12px;border-top:1px solid #1E3A5F;padding-top:16px}
+.rev-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:white;flex-shrink:0}
+.rev-name{font-size:14px;font-weight:700;color:white}
+.rev-role{font-size:11px;color:#94A3B8;margin-top:2px}
+
+/* FAQ */
+.faq{max-width:900px;margin:auto}
+.faq-item{border:1.5px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:border-color .25s}
+.faq-item:hover{border-color:var(--primary)}
+.faq-item.open{border-color:var(--primary)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;cursor:pointer;font-size:15px;font-weight:600;user-select:none}
+.faq-ico{width:28px;height:28px;border-radius:50%;background:var(--light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all .3s;font-weight:300}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:var(--primary);color:white}
+.faq-ans{font-size:14px;color:var(--muted);max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;padding:0 22px;line-height:1.7}
+.faq-item.open .faq-ans{max-height:150px;padding:0 22px 18px}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact-card{background:var(--light);padding:35px;border-radius:20px;border:1px solid var(--border);transition:.3s}
+.contact-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(37,99,235,.1)}
+.ci-row{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.ci-row:last-of-type{border:none}
+.ci-icon{width:40px;height:40px;background:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ci-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.ci-val{font-size:14px;font-weight:600;color:var(--text)}
+.map{height:350px;border-radius:20px;overflow:hidden;border:1.5px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.map iframe{width:100%;height:100%;border:none;display:block}
+
+/* CTA */
+.cta-sec{background:linear-gradient(135deg,var(--light),white);border-top:1px solid #bfdbfe;border-bottom:1px solid #bfdbfe;padding:80px 5%;text-align:center}
+.cta-sec h2{font-size:42px;font-weight:800;margin-bottom:14px;letter-spacing:-.5px}
+.cta-sec p{color:var(--muted);font-size:16px;margin-bottom:32px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.cta-chip{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);background:white;border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-weight:500}
+
+/* FOOTER */
+footer{background:#0f172a;padding:48px 5% 28px}
+.footer-top{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo{font-size:20px;font-weight:800;color:white;margin-bottom:12px}
+.footer-logo span{color:#60A5FA}
+.footer-top p{font-size:14px;color:#94A3B8;line-height:1.75;max-width:260px}
+.footer-col h4{font-size:11px;font-weight:700;color:white;margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
+.footer-col a{display:block;font-size:13px;color:#94A3B8;text-decoration:none;margin-bottom:9px;transition:color .2s}
+.footer-col a:hover{color:white}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid #1E293B;padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:13px;color:#475569}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:13px;color:#475569;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:white}
+
+/* WHATSAPP */
+.whatsapp-float{position:fixed;bottom:24px;right:24px;background:#25D366;color:white;padding:14px 20px;border-radius:999px;text-decoration:none;font-weight:700;z-index:9999;font-size:14px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 24px rgba(37,211,102,.45);transition:.3s;animation:wapulse 3s ease-in-out infinite}
+.whatsapp-float:hover{transform:scale(1.06)}
+@keyframes wapulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,.45)}50%{box-shadow:0 6px 32px rgba(37,211,102,.7)}}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
+.reveal.on{opacity:1;transform:translateY(0)}
+.reveal.left{transform:translateX(-30px)}
+.reveal.right{transform:translateX(30px)}
+.reveal.left.on,.reveal.right.on{transform:translate(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:100000}
+.modal-box{background:#fff;padding:36px;border-radius:20px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.2)}
+.modal-box h2{color:var(--success);margin-bottom:12px}
+.modal-box p{color:var(--muted);margin-bottom:24px;line-height:1.7}
+
+/* MOBILE */
+@media(max-width:900px){
+  .hero-grid,.about,.contact{grid-template-columns:1fr}
+  .grid,.stats-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  textarea,.submit,.form-note{grid-column:1/-1}
+  .hero h1{font-size:38px}
+  .nav-links{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .section-title{font-size:32px}
+  .doctor-card{display:none}
+}
+@media(max-width:560px){
+  .grid,.stats-grid{grid-template-columns:1fr}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+</style>
+
+<style>
+.google-rating{
+text-align:center;
+font-size:1.2rem;
+font-weight:700;
+margin:20px 0;
+}
+.rev-card{
+min-width:320px;
+}
+</style>
+
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">🏥 Now Accepting New Patients <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">⚡ Same-Day Appointments Available <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">💻 Telehealth Consultations Online <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">🛡️ All Major Insurance Accepted <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">📞 Call Us: (555) 123-4567 <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">⭐ Rated 4.9/5 by 300+ Patients <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">🏥 Now Accepting New Patients <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">⚡ Same-Day Appointments Available <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">💻 Telehealth Consultations Online <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">🛡️ All Major Insurance Accepted <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">📞 Call Us: (555) 123-4567 <span class="ticker-sep">|</span></span>
+    <span class="ticker-item">⭐ Rated 4.9/5 by 300+ Patients <span class="ticker-sep">|</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-wrap">
+    <div class="logo">Care<span>Plus</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#doctor">Doctor</a></li>
+      <li><a href="#appointment">Appointment</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#appointment" class="btn">Book Appointment</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="badge">✓ Trusted by 5,000+ Patients</div>
+      <h1>Your Health Is Our Highest Priority</h1>
+      <p>Professional medical care with experienced doctors, modern facilities, and easy online appointment booking.</p>
+      <div class="hero-buttons">
+        <a href="#appointment" class="btn">Book Appointment</a>
+        <a href="#doctor" class="btn secondary">Meet Our Doctor</a>
+      </div>
+    </div>
+    <div class="doctor-card reveal d2">
+      <div class="doctor-image"><img src="doctor.jpg" alt="Doctor" class="doctor-photo" onerror="this.style.display='none'"></div>
+      <h3 style="font-size:18px;font-weight:700">Dr. Rudy Johnson</h3>
+      <p style="color:var(--muted);font-size:14px;margin-top:4px">Senior Family Physician</p>
+      <div class="rating">
+        <div><strong>15+ Years</strong><small>Experience</small></div>
+        <div><strong>4.9 ⭐</strong><small>Patient Rating</small></div>
+        <div><strong>5,000+</strong><small>Patients</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="ts-track">
+    <div class="ts-item"><span class="ts-icon">🏥</span>Board Certified Physicians</div>
+    <div class="ts-item"><span class="ts-icon">⭐</span>4.9/5 Patient Rating</div>
+    <div class="ts-item"><span class="ts-icon">⚡</span>Same-Day Appointments</div>
+    <div class="ts-item"><span class="ts-icon">🛡️</span>All Insurance Accepted</div>
+    <div class="ts-item"><span class="ts-icon">💻</span>Telehealth Available</div>
+    <div class="ts-item"><span class="ts-icon">🔒</span>HIPAA Compliant & Secure</div>
+    <div class="ts-item"><span class="ts-icon">👨‍👩‍👧</span>Family-Friendly Clinic</div>
+    <div class="ts-item"><span class="ts-icon">📍</span>Convenient Location</div>
+    <div class="ts-item"><span class="ts-icon">🏥</span>Board Certified Physicians</div>
+    <div class="ts-item"><span class="ts-icon">⭐</span>4.9/5 Patient Rating</div>
+    <div class="ts-item"><span class="ts-icon">⚡</span>Same-Day Appointments</div>
+    <div class="ts-item"><span class="ts-icon">🛡️</span>All Insurance Accepted</div>
+    <div class="ts-item"><span class="ts-icon">💻</span>Telehealth Available</div>
+    <div class="ts-item"><span class="ts-icon">🔒</span>HIPAA Compliant & Secure</div>
+    <div class="ts-item"><span class="ts-icon">👨‍👩‍👧</span>Family-Friendly Clinic</div>
+    <div class="ts-item"><span class="ts-icon">📍</span>Convenient Location</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <h2 class="section-title reveal">Medical Services</h2>
+    <p class="section-sub reveal">Comprehensive healthcare services for individuals and families — all under one roof.</p>
+    <div class="grid">
+      <div class="card reveal d1"><div class="icon">🩺</div><h3>General Consultation</h3><p>Routine checkups, illness diagnosis, and personalised treatment plans tailored to your needs.</p></div>
+      <div class="card reveal d2"><div class="icon">❤️</div><h3>Preventive Care</h3><p>Health screenings, vaccinations, and lifestyle guidance to keep you healthy before problems arise.</p></div>
+      <div class="card reveal d3"><div class="icon">💊</div><h3>Prescription Services</h3><p>Medication management, renewals, and follow-up care to ensure your treatment is effective.</p></div>
+      <div class="card reveal d4"><div class="icon">🧪</div><h3>Lab Testing</h3><p>On-site blood tests and diagnostic evaluations with fast turnaround on your results.</p></div>
+      <div class="card reveal d5"><div class="icon">💻</div><h3>Online Consultation</h3><p>Secure video appointments from home — perfect for follow-ups and minor concerns.</p></div>
+      <div class="card reveal d6"><div class="icon">🚑</div><h3>Urgent Care</h3><p>Walk-ins welcome. Same-day appointments available 6 days a week with minimal wait times.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat-card reveal d1"><div class="stat-icon">👥</div><div class="number">5,000+</div><p>Patients Treated</p></div>
+    <div class="stat-card reveal d2"><div class="stat-icon">🏆</div><div class="number">15+</div><p>Years Experience</p></div>
+    <div class="stat-card reveal d3"><div class="stat-icon">⭐</div><div class="number">98%</div><p>Satisfaction Rate</p></div>
+    <div class="stat-card reveal d4"><div class="stat-icon">⚡</div><div class="number">1hr</div><p>Avg. Response Time</p></div>
+  </div>
+</section>
+
+<!-- DOCTOR -->
+<section id="doctor">
+  <div class="container about">
+    <div class="about-box reveal left"><img src="doctor.jpg" alt="Doctor" class="doctor-about-photo" onerror="this.style.display='none'"></div>
+    <div class="reveal right">
+      <h2 style="font-size:42px;margin-bottom:8px;font-weight:800;letter-spacing:-.5px">Meet Your Doctor</h2>
+      <p style="color:var(--primary);font-weight:600;margin-bottom:20px">Dr. Rudy Johnson — Board Certified Family Physician</p>
+      <p style="color:var(--muted);margin-bottom:24px;line-height:1.8">Dr. Johnson is a compassionate, board-certified physician with over 15 years of experience. He takes time to truly listen, explains everything clearly, and works with you to create a care plan that fits your real life.</p>
+      <div class="check">🎓 MD — Johns Hopkins University School of Medicine</div>
+      <div class="check">🏥 Residency at Mayo Clinic — Family Medicine</div>
+      <div class="check">✅ Board Certified — American Board of Family Medicine</div>
+      <div class="check">❤️ Special focus: Preventive care & chronic disease</div>
+      <br>
+      <a href="#appointment" class="btn">Schedule Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment" class="appointment">
+  <div class="container">
+    <h2 class="section-title reveal">Book An Appointment</h2>
+    <p class="section-sub reveal">Fill out the form and we'll confirm your slot within 1 hour with a personal phone call.</p>
+    <div class="booking reveal">
+      <form class="form-grid" id="apptForm">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="email" placeholder="Email Address">
+        <select>
+          <option value="">Select Department</option>
+          <option>General Medicine</option>
+          <option>Preventive Care</option>
+          <option>Prescription Renewal</option>
+          <option>Lab / Diagnostics</option>
+          <option>Telehealth Consultation</option>
+          <option>Urgent Care</option>
+        </select>
+        <select>
+          <option>Morning (8am–12pm)</option>
+          <option>Afternoon (12pm–4pm)</option>
+          <option>Evening (4pm–7pm)</option>
+        </select>
+        <input type="date" style="grid-column:1/-1">
+        <textarea placeholder="Tell us about your symptoms or reason for visit (optional)"></textarea>
+        <button class="submit" type="submit">✅ Confirm Appointment Request</button>
+        <p class="form-note">🔒 Your information is 100% private and secure. We never share your data.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDING REVIEWS -->
+<div class="reviews-section" id="reviews">
+  <div class="rev-header reveal">
+    <div class="rev-tag">Patient Reviews</div>
+    <h2 class="section-title">Trusted by Thousands of Patients</h2>
+    <p class="section-sub" style="color:#94A3B8">Real reviews from real patients. Hover to pause and read.</p>
+  </div>
+  <div class="rev-track-wrap">
+    <!-- Row 1 — left to right -->
+    <div class="rev-track">
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Dr. Johnson is the most thorough and genuinely caring doctor I've ever had. He spent real time explaining my diagnosis and never made me feel rushed. I actually look forward to my appointments now."</p><div class="rev-author"><div class="rev-av" style="background:#2563eb">M</div><div><div class="rev-name">Michael R.</div><div class="rev-role">Patient for 3 years</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Booking was so easy — done in 2 minutes. Got a same-day appointment, the clinic was spotless, the staff were incredibly friendly. Honestly the best healthcare experience I've ever had."</p><div class="rev-author"><div class="rev-av" style="background:#059669">E</div><div><div class="rev-name">Emma T.</div><div class="rev-role">New Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"The telehealth option changed my life. I got a prescription renewal during my lunch break without leaving the office. Professional, fast, and they followed up the next day to check how I was doing."</p><div class="rev-author"><div class="rev-av" style="background:#7C3AED">D</div><div><div class="rev-name">David L.</div><div class="rev-role">Telehealth Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"I brought my entire family here — my kids, husband, and parents. Everyone gets the same incredible level of attention. This is a clinic that truly cares about people, not just appointments."</p><div class="rev-author"><div class="rev-av" style="background:#DC2626">L</div><div><div class="rev-name">Linda K.</div><div class="rev-role">Family Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Switching doctors after 10 years was scary. CarePlus made it seamless — transferred my records, went through everything thoroughly and made me feel completely at home from day one."</p><div class="rev-author"><div class="rev-av" style="background:#0891B2">R</div><div><div class="rev-name">Robert M.</div><div class="rev-role">Transferred Patient</div></div></div></div>
+      <!-- duplicates for seamless loop -->
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Dr. Johnson is the most thorough and genuinely caring doctor I've ever had. He spent real time explaining my diagnosis and never made me feel rushed. I actually look forward to my appointments now."</p><div class="rev-author"><div class="rev-av" style="background:#2563eb">M</div><div><div class="rev-name">Michael R.</div><div class="rev-role">Patient for 3 years</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Booking was so easy — done in 2 minutes. Got a same-day appointment, the clinic was spotless, the staff were incredibly friendly. Honestly the best healthcare experience I've ever had."</p><div class="rev-author"><div class="rev-av" style="background:#059669">E</div><div><div class="rev-name">Emma T.</div><div class="rev-role">New Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"The telehealth option changed my life. I got a prescription renewal during my lunch break without leaving the office. Professional, fast, and they followed up the next day to check how I was doing."</p><div class="rev-author"><div class="rev-av" style="background:#7C3AED">D</div><div><div class="rev-name">David L.</div><div class="rev-role">Telehealth Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"I brought my entire family here — my kids, husband, and parents. Everyone gets the same incredible level of attention. This is a clinic that truly cares about people, not just appointments."</p><div class="rev-author"><div class="rev-av" style="background:#DC2626">L</div><div><div class="rev-name">Linda K.</div><div class="rev-role">Family Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Switching doctors after 10 years was scary. CarePlus made it seamless — transferred my records, went through everything thoroughly and made me feel completely at home from day one."</p><div class="rev-author"><div class="rev-av" style="background:#0891B2">R</div><div><div class="rev-name">Robert M.</div><div class="rev-role">Transferred Patient</div></div></div></div>
+    </div>
+    <!-- Row 2 — reverse direction -->
+    <div class="rev-track rev-track2">
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"I've been coming here 2 years and referred 6 friends. Every visit feels like they genuinely remember who you are. The consistency and personal care is something you just can't find elsewhere."</p><div class="rev-author"><div class="rev-av" style="background:#D97706">S</div><div><div class="rev-name">Sarah W.</div><div class="rev-role">Long-term Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"My lab results came back fast and Dr. Johnson called me personally to walk through everything. That level of personal attention is impossible to find at bigger clinics. Absolutely outstanding."</p><div class="rev-author"><div class="rev-av" style="background:#16A34A">A</div><div><div class="rev-name">Ahmed K.</div><div class="rev-role">Lab Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Zero wait time, incredibly helpful front desk, seen on time, treated with total respect. I left with a clear plan and full confidence. This is what healthcare should always feel like."</p><div class="rev-author"><div class="rev-av" style="background:#9333EA">P</div><div><div class="rev-name">Patricia G.</div><div class="rev-role">New Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"My elderly mother was nervous. The staff were so patient and gentle with her. She left feeling completely reassured and cared for. We've found our family clinic for life. Genuinely grateful."</p><div class="rev-author"><div class="rev-av" style="background:#0891B2">T</div><div><div class="rev-name">Tom B.</div><div class="rev-role">Family Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Switched from a big hospital and the difference is night and day. Here I'm a person with a name, not a patient number. Dr. Johnson knows my history and actually cares about outcomes."</p><div class="rev-author"><div class="rev-av" style="background:#B45309">J</div><div><div class="rev-name">James F.</div><div class="rev-role">Patient for 1 year</div></div></div></div>
+      <!-- duplicates -->
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"I've been coming here 2 years and referred 6 friends. Every visit feels like they genuinely remember who you are. The consistency and personal care is something you just can't find elsewhere."</p><div class="rev-author"><div class="rev-av" style="background:#D97706">S</div><div><div class="rev-name">Sarah W.</div><div class="rev-role">Long-term Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"My lab results came back fast and Dr. Johnson called me personally to walk through everything. That level of personal attention is impossible to find at bigger clinics. Absolutely outstanding."</p><div class="rev-author"><div class="rev-av" style="background:#16A34A">A</div><div><div class="rev-name">Ahmed K.</div><div class="rev-role">Lab Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Zero wait time, incredibly helpful front desk, seen on time, treated with total respect. I left with a clear plan and full confidence. This is what healthcare should always feel like."</p><div class="rev-author"><div class="rev-av" style="background:#9333EA">P</div><div><div class="rev-name">Patricia G.</div><div class="rev-role">New Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"My elderly mother was nervous. The staff were so patient and gentle with her. She left feeling completely reassured and cared for. We've found our family clinic for life. Genuinely grateful."</p><div class="rev-author"><div class="rev-av" style="background:#0891B2">T</div><div><div class="rev-name">Tom B.</div><div class="rev-role">Family Patient</div></div></div></div>
+      <div class="rev-card"><div class="verified">✓ Verified Patient</div><div class="rev-stars">★★★★★</div><p class="rev-text">"Switched from a big hospital and the difference is night and day. Here I'm a person with a name, not a patient number. Dr. Johnson knows my history and actually cares about outcomes."</p><div class="rev-author"><div class="rev-av" style="background:#B45309">J</div><div><div class="rev-name">James F.</div><div class="rev-role">Patient for 1 year</div></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <h2 class="section-title reveal">Frequently Asked Questions</h2>
+    <p class="section-sub reveal">Everything you need to know before your first visit.</p>
+    <div class="faq reveal">
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Do you accept insurance? <div class="faq-ico">+</div></div><div class="faq-ans">Yes — we work with most major providers including Blue Cross Blue Shield, Aetna, UnitedHealth, Cigna, and Medicare. Self-pay options are also available with transparent pricing upfront.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Can I book a same-day appointment? <div class="faq-ico">+</div></div><div class="faq-ans">Yes! We reserve urgent same-day slots every day. Fill out the booking form or call us directly at (555) 123-4567 and we'll do our best to see you today.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Do you offer telehealth / virtual visits? <div class="faq-ico">+</div></div><div class="faq-ans">Yes — we offer secure video consultations for follow-ups, prescription renewals, and minor concerns. Select "Telehealth" when booking and we'll send you a secure link before your appointment.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Are walk-ins welcome? <div class="faq-ico">+</div></div><div class="faq-ans">Walk-ins are welcome based on daily availability. Booking ahead ensures we can prepare for your visit and keeps your wait time to a minimum.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What should I bring to my first visit? <div class="faq-ico">+</div></div><div class="faq-ans">Please bring a valid photo ID, your insurance card, a list of current medications, and any relevant previous medical records or test results. Arriving 10 minutes early helps us serve you better.</div></div>
+      <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Is my health information kept private? <div class="faq-ico">+</div></div><div class="faq-ans">Absolutely. We are fully HIPAA-compliant. Your records and personal data are encrypted, secure, and never shared without your explicit consent. Your privacy is our responsibility.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-sec reveal">
+  <h2>Your Health Can't Wait.<br>Book Today — It's Easy.</h2>
+  <p>New patients welcome. Same-day appointments available. No surprises.</p>
+  <div class="cta-btns">
+    <a href="#appointment" class="btn" style="font-size:16px;padding:16px 36px">📅 Book an Appointment</a>
+    <a href="tel:5551234567" class="btn secondary" style="font-size:16px;padding:16px 36px">📞 Call (555) 123-4567</a>
+  </div>
+  <div class="cta-chips">
+    <div class="cta-chip">✅ No commitment required</div>
+    <div class="cta-chip">⚡ Same-day slots available</div>
+    <div class="cta-chip">🛡️ All insurance accepted</div>
+    <div class="cta-chip">🔒 100% private & secure</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container contact">
+    <div class="contact-card reveal left">
+      <h2 style="margin-bottom:24px;font-size:28px;font-weight:800">Contact Clinic</h2>
+      <div class="ci-row"><div class="ci-icon">📞</div><div><div class="ci-label">Phone</div><div class="ci-val">(555) 123-4567</div></div></div>
+      <div class="ci-row"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val">hello@careplus.com</div></div></div>
+      <div class="ci-row"><div class="ci-icon">📍</div><div><div class="ci-label">Address</div><div class="ci-val">123 Medical Center Drive, Suite 200</div></div></div>
+      <div class="ci-row"><div class="ci-icon">🕐</div><div><div class="ci-label">Hours</div><div class="ci-val">Mon–Fri: 8am–7pm · Sat: 9am–2pm</div></div></div>
+    </div>
+    <div class="map reveal right">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.3063877836644!2d-74.04707532535826!3d40.689249371397054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25090129c363d%3A0x40c6a5770d25022b!2sStatue%20of%20Liberty!5e0!3m2!1sen!2sin!4v1780318785969!5m2!1sen!2sin" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Care<span>Plus</span></div>
+      <p>Compassionate, expert healthcare for your whole family. Accepting new patients — book online in minutes.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">General Consultation</a>
+      <a href="#services">Preventive Care</a>
+      <a href="#services">Prescription Services</a>
+      <a href="#services">Lab & Diagnostics</a>
+      <a href="#services">Telehealth</a>
+    </div>
+    <div class="footer-col">
+      <h4>Clinic</h4>
+      <a href="#doctor">Meet the Doctor</a>
+      <a href="#reviews">Patient Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#appointment">Book Appointment</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:5551234567">📞 (555) 123-4567</a>
+      <a href="mailto:hello@careplus.com">✉️ hello@careplus.com</a>
+      <a href="#contact">📍 Get Directions</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 CarePlus Medical Clinic. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">HIPAA Notice</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a class="whatsapp-float" href="https://wa.me/15551234567" target="_blank">💬 WhatsApp</a>
+
+<script>
+// Scroll reveal
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('on')}),{threshold:0.1})
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+
+// FAQ accordion
+function toggleFaq(el){
+  document.querySelectorAll('.faq-item.open').forEach(f=>{if(f!==el)f.classList.remove('open')})
+  el.classList.toggle('open')
+}
+
+// Appointment form
+document.getElementById('apptForm').addEventListener('submit',function(e){
+  e.preventDefault()
+  const modal=document.createElement('div')
+  modal.className='modal-overlay'
+  modal.innerHTML=`<div class="modal-box">
+    <div style="font-size:48px;margin-bottom:12px">✅</div>
+    <h2 style="color:#16a34a;margin-bottom:12px">Appointment Requested!</h2>
+    <p>Thank you! Our team will call you within 1 hour to confirm your appointment details.</p>
+    <br>
+    <button id="closeModal" class="btn" style="width:100%">Close</button>
+  </div>`
+  document.body.appendChild(modal)
+  document.getElementById('closeModal').onclick=()=>modal.remove()
+  this.reset()
+})
+</script>
+</body>
+</html>
